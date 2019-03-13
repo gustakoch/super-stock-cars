@@ -1,3 +1,3 @@
 # SuperStock Cars
 
-Project created at the end of the @da2k JavaScript course!
+Project created at the end of the @fdaciuk JavaScript course!
