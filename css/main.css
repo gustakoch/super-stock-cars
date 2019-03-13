@@ -1,0 +1,113 @@
+@charset "utf-8";
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+  margin: 0 auto;
+  width: 960px;
+
+}
+
+h2 {
+  background-color: #505050;
+  border: 4px solid #FFF;
+  color: #FFF;
+  text-shadow: 2px 2px 2px rgba(0,0,0, .3);
+  padding: 10px;
+  font-size: 1.8em;
+  text-align: center;
+  box-shadow: 0 3px 3px rgba(0,0,0, .3);
+}
+
+span {
+  display: block;
+}
+
+.phone {
+  font-size: 0.6em;
+}
+
+.main-form {
+  display: block;
+  float: left;
+  width: 320px;
+  margin: 0;
+  border: 1px solid #CCC;
+  background: linear-gradient(to bottom, #DDD, #EEE);
+  box-shadow: 0 1px 3px rgba(0,0,0, .3);
+  color: #707070;
+  font-size: 0.9em;
+}
+
+.table {
+  display: flex;
+  flex: auto;
+  width: 628px;
+  padding-left: 10px;
+}
+
+table {
+  background: linear-gradient(to bottom, #DDD, #EEE);
+  box-shadow: 0 1px 3px rgba(0,0,0, .3);
+  color: #707070;
+  font-size: 0.9em;
+  margin-bottom: 10px;
+}
+
+form {
+  margin: 15px 40px 15px 40px;
+
+}
+
+thead, tbody, table {
+  border-spacing: 0;
+}
+
+td {
+  text-align: center;
+  width: 150px;
+  height: 25px;
+  max-height: auto;
+  max-width: 250px;
+  border: 1px solid #CCC;
+  font-weight: bold;
+  font-size: 0.9em;
+  color: #707070;
+}
+
+label, input, button {
+  display: block;
+}
+
+label {
+  font-weight: bold;
+  font-size: 0.9em;
+}
+
+input {
+  margin-bottom: 15px;
+  width: 225px;
+  padding: 5px;
+  border: 1px solid #CCC;
+}
+
+button {
+  background-color: #027431;
+  color: #FFF;
+  width: 100px;
+  height: 35px;
+  font-weight: bold;
+  font-size: 0.8em;
+  cursor: pointer;
+  border: 1px solid #027431;
+}
+
+button:hover {
+  background-color: #015e28;
+}
+
+img {
+  max-width: 250px;
+  max-height: auto;
+  line-height: 125px;
+  align-items: center;
+}
