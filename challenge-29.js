@@ -36,9 +36,6 @@
   */
 
   function app() {
-    var $fragment = document.createDocumentFragment();
-    var $tr = document.createElement('tr');
-
     return {
       init: function init() {
         this.companyInfo();
