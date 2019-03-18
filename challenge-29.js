@@ -1,5 +1,6 @@
 (function($) {
   'use strict';
+
   /*
   Vamos estruturar um pequeno app utilizando módulos.
   Nosso APP vai ser um cadastro de carros. Vamos fazê-lo por partes.
@@ -36,6 +37,8 @@
   */
 
   function app() {
+    var $tr = document.createElement('tr');
+
     return {
       init: function init() {
         this.companyInfo();
@@ -50,7 +53,9 @@
       },
 
       getCompanyInfo: function getCompanyInfo() {
-        if ( !app().isReady.call(this) ) { return; }
+        if ( !app().isReady.call(this) ) {
+          return;
+        }
 
         var data = JSON.parse(this.responseText);
         var $companyName = $('[data-js="company-name"]').get();
@@ -75,18 +80,21 @@
 
       createNewCar: function createNewCar() {
         var $fragment = document.createDocumentFragment();
-        var $tr = document.createElement('tr');
         var $tdImage = document.createElement('td');
         var $imageURL = document.createElement('img');
         var $tdBrand = document.createElement('td');
         var $tdYear = document.createElement('td');
         var $tdPlate = document.createElement('td');
         var $tdColor = document.createElement('td');
+        var $tdRemove = document.createElement('td');
+        var $removeImage = document.createElement('img');
 
+        $removeImage.setAttribute('src', 'images/remove.png');
         $imageURL.setAttribute('src', $('[data-js="img"]').get().value);
+        $tdRemove.appendChild($removeImage);
         $tdImage.appendChild($imageURL);
         $tdBrand.textContent = $('[data-js="brand-model"]').get().value;
-        $tdYear.textContent = $('[data-js="year"]').get().value;
+        $tdYear .textContent = $('[data-js="year"]').get().value;
         $tdPlate.textContent = $('[data-js="plate"]').get().value;
         $tdColor.textContent = $('[data-js="color"]').get().value;
 
@@ -95,9 +103,17 @@
         $tr.appendChild($tdYear);
         $tr.appendChild($tdPlate);
         $tr.appendChild($tdColor);
+        $tr.appendChild($tdRemove);
+
+        $removeImage.addEventListener('click', this.removeCar, false);
 
         app().clearFieldsAndSetFocus();
+
         return $fragment.appendChild($tr);
+      },
+
+      removeCar: function removeCar() {
+        $tr.textContent = '';
       },
 
       clearFieldsAndSetFocus: function clearFieldsAndSetFocus() {
@@ -109,7 +125,6 @@
 
         $('[data-js="img"]').get().focus();
       },
-
     }
   }
 
