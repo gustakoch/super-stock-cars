@@ -1,5 +1,6 @@
 (function($) {
   'use strict';
+
   /*
   Vamos estruturar um pequeno app utilizando módulos.
   Nosso APP vai ser um cadastro de carros. Vamos fazê-lo por partes.
@@ -36,6 +37,8 @@
   */
 
   function app() {
+    var $tr = document.createElement('tr');
+
     return {
       init: function init() {
         this.companyInfo();
@@ -67,7 +70,6 @@
 
       initEvents: function initEvents() {
         $('[data-js="form"]').on('submit', this.handleSubmit);
-        $('[data-js="removeImage"]').on('click', this.removeCar);
       },
 
       handleSubmit: function handleSubmit(e) {
@@ -77,6 +79,7 @@
       },
 
       createNewCar: function createNewCar() {
+        var $fragment = document.createDocumentFragment();
         var $tdImage = document.createElement('td');
         var $imageURL = document.createElement('img');
         var $tdBrand = document.createElement('td');
@@ -87,7 +90,6 @@
         var $removeImage = document.createElement('img');
 
         $removeImage.setAttribute('src', 'images/remove.png');
-        $removeImage.setAttribute('data-js', 'removeImage');
         $imageURL.setAttribute('src', $('[data-js="img"]').get().value);
         $tdRemove.appendChild($removeImage);
         $tdImage.appendChild($imageURL);
@@ -103,14 +105,15 @@
         $tr.appendChild($tdColor);
         $tr.appendChild($tdRemove);
 
+        $removeImage.addEventListener('click', this.removeCar, false);
+
         app().clearFieldsAndSetFocus();
 
         return $fragment.appendChild($tr);
       },
 
       removeCar: function removeCar() {
-        console.log( 'Acessou!' );
-
+        $tr.textContent = '';
       },
 
       clearFieldsAndSetFocus: function clearFieldsAndSetFocus() {
