@@ -36,14 +36,12 @@
   que será nomeado de "app".
   */
 
-  // em fase de testes...
-
   function app() {
     return {
       init: function init() {
         this.companyInfo();
         this.initEvents();
-        this.getCarRegisterInServer();
+        this.getCarsRegisterInServer();
       },
 
       carInfo: function carInfo() {
@@ -73,7 +71,7 @@
         });
       },
 
-      getCarRegisterInServer: function getCarRegisterInServer() {
+      getCarsRegisterInServer: function getCarsRegisterInServer() {
         var getCars = new XMLHttpRequest();
         getCars.open('GET', 'http://localhost:3000/car');
         getCars.send();
@@ -84,25 +82,24 @@
       putDataInTable: function putDataInTable() {
         if (this.readyState === 4) {
           var cars = JSON.parse(this.responseText);
-
           var $tableCar = $('[data-js="table-car"]').get();
           var $fragment = document.createDocumentFragment();
-          var $tr = document.createElement('tr');
-
-          var $tdImage = document.createElement('td');
-          var $imageURL = document.createElement('img');
-          var $tdBrand = document.createElement('td');
-          var $tdYear = document.createElement('td');
-          var $tdPlate = document.createElement('td');
-          var $tdColor = document.createElement('td');
-          var $tdRemove = document.createElement('td');
-          var $removeButton = document.createElement('img');
-
-          $removeButton.setAttribute('data-id', 'removeButton');
-          $removeButton.setAttribute('src', 'images/remove.png');
-          $tdRemove.appendChild($removeButton);
 
           cars.forEach(function(car) {
+            var $tr = document.createElement('tr');
+            var $tdImage = document.createElement('td');
+            var $imageURL = document.createElement('img');
+            var $tdBrand = document.createElement('td');
+            var $tdYear = document.createElement('td');
+            var $tdPlate = document.createElement('td');
+            var $tdColor = document.createElement('td');
+            var $tdRemove = document.createElement('td');
+            var $removeButton = document.createElement('img');
+
+            $removeButton.setAttribute('data-id', 'removeButton');
+            $removeButton.setAttribute('src', 'images/remove.png');
+            $tdRemove.appendChild($removeButton);
+
             $imageURL.setAttribute('src', car.image);
             $tdBrand.textContent = car.brandModel;
             $tdYear.textContent = car.year;
@@ -119,28 +116,32 @@
 
             $fragment.appendChild($tr);
 
-            return $tableCar.appendChild($fragment);
-
+            $tdRemove.addEventListener('click', app().removeCarRegister, false);
           })
-          $tdRemove.addEventListener('click', app().removeCarRegister, false);
+          return $tableCar.appendChild($fragment);
         }
+      },
+
+      removeCarRegister: function removeCarRegister() {
+        this.parentNode.remove();
       },
 
       companyInfo: function companyInfo() {
         var info = new XMLHttpRequest();
         info.open('GET', 'company.json', true);
         info.send();
+
         info.addEventListener('readystatechange', this.getCompanyInfo, false);
       },
 
       getCompanyInfo: function getCompanyInfo() {
-        if ( !app().isReady.call(this) ) {
+        if ( !app().isReady.call(this) )
           return;
-        }
 
         var data = JSON.parse(this.responseText);
         var $companyName = $('[data-js="company-name"]').get();
         var $companyPhone = $('[data-js="company-phone"]').get();
+
         $companyName.textContent = data.name;
         $companyPhone.textContent = data.phone;
       },
@@ -156,12 +157,6 @@
       handleSubmit: function handleSubmit(e) {
         e.preventDefault();
         app().registerNewCarInServer();
-
-      },
-
-      removeCarRegister: function removeCarRegister() {
-        this.parentNode.remove();
-
       },
 
       clearFieldsAndSetFocus: function clearFieldsAndSetFocus() {
@@ -177,7 +172,4 @@
   }
 
   app().init();
-
-  app().putDataInTable();
-
 })(window.DOM);
