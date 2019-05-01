@@ -64,7 +64,7 @@
 
         newCar.addEventListener('readystatechange', function() {
           if (newCar.readyState === 4) {
-            console.log('Cadastro realizado com sucesso!');
+            console.log('Veículo cadastrado com sucesso!');
             app().clearFieldsAndSetFocus();
             window.location.reload();
           }
@@ -98,6 +98,7 @@
 
             $removeButton.setAttribute('data-id', 'removeButton');
             $removeButton.setAttribute('src', 'images/remove.png');
+            $tdRemove.setAttribute('class', 'delete');
             $tdRemove.appendChild($removeButton);
 
             $imageURL.setAttribute('src', car.image);
@@ -116,14 +117,25 @@
 
             $fragment.appendChild($tr);
 
-            $tdRemove.addEventListener('click', app().removeCarRegister, false);
+            $tdRemove.addEventListener('click', app().removeCarRegisterInServer, false);
           })
           return $tableCar.appendChild($fragment);
         }
       },
 
-      removeCarRegister: function removeCarRegister() {
-        this.parentNode.remove();
+      removeCarRegisterInServer: function removeCarRegisterInServer() {
+        var car = app().carInfo();
+        var deleteCar = new XMLHttpRequest();
+        deleteCar.open('DELETE', 'http://localhost:3000/car');
+        deleteCar.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+        deleteCar.send('plate='+car.plate);
+
+        deleteCar.addEventListener('readystatechange', function() {
+          if (deleteCar.readyState === 4) {
+            console.log("Veículo removido com sucesso!");
+            // window.location.reload();
+          }
+        });
       },
 
       companyInfo: function companyInfo() {

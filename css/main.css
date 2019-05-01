@@ -49,6 +49,12 @@ span {
   padding-left: 10px;
 }
 
+.delete:hover {
+  cursor: pointer;
+  border: 2px solid #FF0000;
+  transition: all 500ms;
+}
+
 table {
   background: linear-gradient(to bottom, #DDD, #EEE);
   box-shadow: 0 1px 3px rgba(0,0,0, .3);
